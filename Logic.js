@@ -29,8 +29,8 @@ function CalculateProfitercentage(){
     let quantity = parseInt(Quantity.value); 
    let profit = CalculateProfit();
    let CostPrice= parseFloat(InitialPrice.value)* quantity;
-   let profitPercentage = (profit/CostPrice)*100;
-   Output.innerText=(`Hey, the profit is ${profit} and the percentage is ${profitPercentage}%`);
+   let profitPercentage = ((profit/CostPrice)*100).toFixed(2);
+   Output.innerText=(`Hey, there is a profit of Rs.${profit} and the profit percentage is ${profitPercentage}%`);
    return profitPercentage;
 }
 
@@ -38,8 +38,8 @@ function CalculateLossPercentage(){
     let quantity = parseInt(Quantity.value); 
    let loss = CalculateLoss();
    let CostPrice= parseFloat(InitialPrice.value)* quantity;
-   let lossPercentage = (loss/CostPrice)*100;
-   Output.innerText= `Hey, the loss is ${loss} and the percentage is ${lossPercentage}%`;
+   let lossPercentage = ((loss/CostPrice)*100).toFixed(2);
+   Output.innerText= `Hey, there is a loss of Rs.${loss} and the loss percentage is ${lossPercentage}%`;
    return lossPercentage;
 }
 
@@ -48,9 +48,11 @@ function CalculateProfitandLoss(){
     let CostPrice= parseFloat(InitialPrice.value)* quantity;
     let SellingPrice = parseFloat(CurrentPrice.value)* quantity;
 
-    if(!quantity || quantity<0 || !CostPrice || CostPrice<0 || !SellingPrice || SellingPrice<0)
+    if(!quantity || quantity<0 || !CostPrice || CostPrice <= -1|| !SellingPrice || SellingPrice <= -1)
     alert("please enter valid value");
-
+    else if(CostPrice === SellingPrice){
+        Output.innerText = 'There is no loss and no profit';
+    }
     else{
     if(SellingPrice > CostPrice){
         let profit = CalculateProfit();
